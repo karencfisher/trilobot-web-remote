@@ -1,2 +1,5 @@
 trilobot
 flask
+smbus
+RPi-GPIO
+
