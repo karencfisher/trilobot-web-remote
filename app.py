@@ -4,7 +4,7 @@ from multiprocessing import Process, Queue
 import json
 import os
 import signal
-from trilobot import *
+from control import dispatch_command
 
 
 app = Flask(__name__)
@@ -29,26 +29,6 @@ def initialize_robot(speed):
                                                                    SPEED))
             robot_process.start()
             robot_initialized = True
-
-def dispatch_command(que, speed):
-    tbot = Trilobot()
-    while True:
-        # If there is a command in the queue, dequeue and execute it
-        if not que.empty():
-            command = que.get()
-            if command == "exit":
-                tbot.stop()
-                break
-            elif command == "forward":
-                tbot.forward(speed)
-            elif command == "reverse":
-                tbot.backward(speed)
-            elif command == "left":
-                tbot.turn_left(speed)
-            elif command == "right":
-                tbot.turn_right(speed)
-            else:
-                tbot.stop()
 
 # Route to load the webpage
 @app.route('/')
